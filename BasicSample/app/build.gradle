@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.1'
+    defaultConfig {
+        applicationId "io.appium.uiautomator2"
+        minSdkVersion 18
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "io.appium.uiautomator2.JacocoRunner"
+    }
+
+    packagingOptions {
+        // List every possible conflict because Android doesn't support wildcards
+        // https://code.google.com/p/android/issues/detail?id=67878
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/DISCLAIMER'
+        exclude 'META-INF/groovy-release-info.properties'
+        exclude 'META-INF/DEPENDENCIES'
+    }
+
+    // Use gradle createDebugCoverageReport or connectedCheck to generate jacoco coverage reports
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+    }
+
+    // Find latest version at https://bintray.com/bintray/jcenter/org.jacoco%3Ajacoco/view
+    jacoco {
+        version '0.7.5.201505241946'
+    }
+}
+
+// gradle -q app:dependencies to find dependency conflicts.
+dependencies {
+    androidTestCompile 'com.android.support:support-annotations:23.0.1'
+    androidTestCompile 'com.android.support.test:rules:0.3'
+    androidTestCompile 'org.hamcrest:hamcrest-integration:1.3'
+    androidTestCompile 'com.squareup.okhttp:okhttp:2.5.0'
+    // rest-assured doesn't work on Android
+    //androidTestCompile 'com.jayway.restassured:rest-assured:2.5.0'
+
+    // Use stable recommended netty http://netty.io/downloads.html
+    compile 'io.netty:netty-all:4.0.31.Final'
+    compile 'com.android.support:support-annotations:23.0.1'
+    compile 'com.google.guava:guava:18.0'
+    compile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
+    compile 'com.android.support.test:runner:0.3'
+}

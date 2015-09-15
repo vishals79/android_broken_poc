@@ -1,0 +1,1 @@
+Exploring options for proof of concept appium driver. Some code is broken. Server is based off of Selendroid.
