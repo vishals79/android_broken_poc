@@ -41,6 +41,8 @@ public class AppiumServlet implements IHttpServlet {
         }
 
         String content = command.execute(httpRequest);
+	httpResponse.setContent(content);
+        httpResponse.setStatus(200);
         Log.i("Sending content: " + content);
     }
 }
